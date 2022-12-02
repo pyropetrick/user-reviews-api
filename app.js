@@ -1,9 +1,19 @@
-import http from "http";
 import express from "express";
+import { dataBase } from "./db";
 
 const PORT = process.env.PORT || 5000;
 const app = express();
 
-const server = http.createServer(app);
+const start = async () => {
+  try {
+    await dataBase.authenticate();
+    await dataBase.sync();
+    app.listen(PORT, () => {
+      console.log("server is started on port: " + PORT);
+    });
+  } catch (e) {
+    console.log(e);
+  }
+};
 
-server.listen(PORT);
+start();
