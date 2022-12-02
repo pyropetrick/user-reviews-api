@@ -2,6 +2,11 @@ import { Sequelize } from "sequelize";
 
 const options = {
   dialect: "postgres",
+  protocol: "postgres",
+  dialectOptions: {
+    ssl: true,
+    native: true,
+  },
   host: process.env.DB_HOST,
   port: process.env.DB_PORT,
   define: {
